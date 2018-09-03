@@ -16,6 +16,7 @@ $(document).ready(function () {
   const getText = (x) => $(x).text()
   const setText = (x, y) => $(x).text(y)
   const setAttr = (elm, attr, str) => $(elm).attr(attr, str)
+  const getAttr = (elm, attr) => $(elm).attr(attr)
   let searchString = ''
 
   $(document).on('click', '#submit', function () {
@@ -30,15 +31,15 @@ $(document).ready(function () {
   const apiKey = 'bpkQwq73xVYAAVhMnuooa6rnvD0fTDKA'
   const setVars = function (x) {
     rating = x.rating
-    title = x.title
     stillGifUrl = x.images.fixed_width_still.url
-    gifUrl = x.images.original.url
+    gifUrl = x.images.fixed_width.url
   }
 
   const displayGif = function (x, i) {
     let id = '#' + i
     setAttr(id + ' img', 'src', stillGifUrl)
     setText(id + ' .rating', 'Rating: ' + rating)
+    setAttr(id + ' img', 'placeholder', gifUrl)
   }
 
   const displayAll = function (x, i) {
@@ -60,10 +61,11 @@ $(document).ready(function () {
   $(document).on('click', '.emotion', function () {
     searchString = getText(this)
     apiCall(searchString)
-    console.log(searchString)
-    // console.log(rating)
-    // console.log(title)
-    // console.log(stillGifUrl)
-    // console.log(gifUrl)
+  })
+
+  $(document).on('click', 'div>img', function () {
+    let temp = getAttr(this, 'src')
+    setAttr(this, 'src', getAttr(this, 'placeholder'))
+    setAttr(this, 'placeholder', temp)
   })
 })
