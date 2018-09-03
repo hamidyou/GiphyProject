@@ -6,7 +6,7 @@ let info = {}
 
 $(document).ready(function () {
   const append = (elm, content) => $(elm).append(content)
-  const button = x => "<button type='button' class='emotion btn btn-dark mx-2'>" + x + '</button>'
+  const button = x => "<button type='button' class='emotion btn btn-dark m-2'>" + x + '</button>'
   const newEmotion = () => $('#newEmotion').val().toLowerCase()
   const addToArray = function (x) {
     emotions = emotions.concat(x)
