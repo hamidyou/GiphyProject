@@ -2,8 +2,9 @@ let emotions = ['happy', 'sad', 'angry', 'excited', 'nervous', 'scared']
 let rating = ''
 let stillGifUrl = ''
 let gifUrl = ''
+let title = ''
 let info = {}
-let limit = 12
+let limit = 10
 let offset = 0
 
 $(document).ready(function () {
@@ -19,7 +20,7 @@ $(document).ready(function () {
   const setText = (x, y) => $(x).text(y)
   const setAttr = (elm, attr, str) => $(elm).attr(attr, str)
   const getAttr = (elm, attr) => $(elm).attr(attr)
-  const html = (elm, str) => $(elm).html(str);
+  const html = (elm, str) => $(elm).html(str)
   let searchString = ''
 
   $(document).on('click', '#submit', function () {
@@ -36,15 +37,13 @@ $(document).ready(function () {
     rating = x.rating
     stillGifUrl = x.images.fixed_width_still.url
     gifUrl = x.images.fixed_width.url
+    title = x.title
   }
 
   const displayGif = function (x, i) {
-    // let id = '#' + i
-    let newHtml = "<div class='col p-2 border border-dark m-2' id=" + (i + offset) + "><img src='" + stillGifUrl + "' placeholder='" + gifUrl + "'/><p class='rating'>Rating: " + rating + '</p></div>'
+    let id = i + offset
+    let newHtml = "<div class='col p-2 border border-dark m-2' id=" + id + "><p class='title'>" + title + "</p><img src='" + stillGifUrl + "' placeholder='" + gifUrl + "'/><p class='rating'>Rating: " + rating + '</p></div>'
     append('#gifDisplay', newHtml)
-    // setAttr(id + ' img', 'src', stillGifUrl)
-    // setText(id + ' .rating', 'Rating: ' + rating)
-    // setAttr(id + ' img', 'placeholder', gifUrl)
   }
 
   const displayAll = function (x, i) {
@@ -60,12 +59,17 @@ $(document).ready(function () {
     }).then(function (response) {
       info = response.data
       info.forEach((x, i) => displayAll(x, i))
-      offset += 12
+      offset += 10
     })
   }
 
   $(document).on('click', '.emotion', function () {
+    empty('#gifDisplay')
     searchString = getText(this)
+    apiCall(searchString)
+  })
+
+  $(document).on('click', '#add12', function () {
     apiCall(searchString)
   })
 
