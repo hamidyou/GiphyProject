@@ -3,6 +3,7 @@ let rating = ''
 let stillGifUrl = ''
 let gifUrl = ''
 let title = ''
+let downloadUrl = ''
 let info = {}
 let limit = 10
 let offset = 0
@@ -38,11 +39,20 @@ $(document).ready(function () {
     stillGifUrl = x.images.fixed_width_still.url
     gifUrl = x.images.fixed_width.url
     title = x.title
+    downloadUrl = x.images.original.mp4
   }
 
   const displayGif = function (x, i) {
     let id = i + offset
-    let newHtml = "<div class='col p-2 border border-dark m-2' id=" + id + "><p class='title'>" + title + "</p><img src='" + stillGifUrl + "' placeholder='" + gifUrl + "'/><p class='rating'>Rating: " + rating + '</p></div>'
+    let newHtml =
+      "<div class='col p-2 border border-dark m-2' id=" + id + '>' +
+      "<p class='title'>" + title + '</p>' +
+      "<img src='" + stillGifUrl + "' placeholder='" + gifUrl + "' />" +
+      "<p class='rating'>Rating: " + rating + '</p>' +
+      "<a href='" + downloadUrl + "' download>" +
+      "<button class='btn btn-primary m-2' id='download'>Download Animated GIF</button>" +
+      '</a>' +
+      '</div > '
     append('#gifDisplay', newHtml)
   }
 
