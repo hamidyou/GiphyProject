@@ -49,7 +49,7 @@ $(document).ready(function () {
       "<p class='title'>" + title + '</p>' +
       "<img src='" + stillGifUrl + "' placeholder='" + gifUrl + "' />" +
       "<p class='rating'>Rating: " + rating + '</p>' +
-      "<a href='" + downloadUrl + "' download>" +
+      "<a href='" + stillGifUrl + "' download>" +
       "<button class='btn btn-primary m-2' id='download'>Download Animated GIF</button>" +
       '</a>' +
       '</div > '
