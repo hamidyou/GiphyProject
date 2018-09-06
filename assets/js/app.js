@@ -49,9 +49,7 @@ $(document).ready(function () {
       "<p class='title'>" + title + '</p>' +
       "<img src='" + stillGifUrl + "' placeholder='" + gifUrl + "' />" +
       "<p class='rating'>Rating: " + rating + '</p>' +
-      "<a href='" + stillGifUrl + "' download>" +
       "<button class='btn btn-primary m-2' id='download'>Download Animated GIF</button>" +
-      '</a>' +
       '</div > '
     append('#gifDisplay', newHtml)
   }
@@ -88,4 +86,18 @@ $(document).ready(function () {
     setAttr(this, 'src', getAttr(this, 'placeholder'))
     setAttr(this, 'placeholder', temp)
   })
+
+  const onStartedDownload = function (id) {
+    console.log(`Started downloading: ${id}`);
+  }
+
+  const onFailed = function (error) {
+    console.log(`Download failed: ${error}`);
+  }
+
+  const downloading = chrome.downloads.download({
+    url: downloadUrl
+  })
+
+  $(document).on('click', '#download', downloading.then(onStartedDownload, onFailed))
 })
