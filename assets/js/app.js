@@ -36,7 +36,6 @@ $(document).ready(function () {
     stillGifUrl = x.images.fixed_width_still.url
     gifUrl = x.images.fixed_width.url
     title = x.title
-    downloadUrl = x.images.original.mp4
   }
 
   const displayGif = function (x, i) {
