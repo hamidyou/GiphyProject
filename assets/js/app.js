@@ -3,7 +3,6 @@ let rating = ''
 let stillGifUrl = ''
 let gifUrl = ''
 let title = ''
-let downloadUrl = ''
 let info = {}
 let limit = 10
 let offset = 0
@@ -18,10 +17,8 @@ $(document).ready(function () {
   const addNewButton = () => emotions.forEach(x => append('.buttons', button(x)))
   const empty = x => $(x).empty()
   const getText = (x) => $(x).text()
-  const setText = (x, y) => $(x).text(y)
   const setAttr = (elm, attr, str) => $(elm).attr(attr, str)
   const getAttr = (elm, attr) => $(elm).attr(attr)
-  const html = (elm, str) => $(elm).html(str)
   let searchString = ''
 
   $(document).on('click', '#submit', function () {
@@ -49,7 +46,6 @@ $(document).ready(function () {
       "<p class='title'>" + title + '</p>' +
       "<img src='" + stillGifUrl + "' placeholder='" + gifUrl + "' />" +
       "<p class='rating'>Rating: " + rating + '</p>' +
-      "<button class='btn btn-primary m-2' id='download'>Download Animated GIF</button>" +
       '</div > '
     append('#gifDisplay', newHtml)
   }
@@ -86,18 +82,4 @@ $(document).ready(function () {
     setAttr(this, 'src', getAttr(this, 'placeholder'))
     setAttr(this, 'placeholder', temp)
   })
-
-  const onStartedDownload = function (id) {
-    console.log(`Started downloading: ${id}`);
-  }
-
-  const onFailed = function (error) {
-    console.log(`Download failed: ${error}`);
-  }
-
-  const downloading = chrome.downloads.download({
-    url: downloadUrl
-  })
-
-  $(document).on('click', '#download', downloading.then(onStartedDownload, onFailed))
 })
